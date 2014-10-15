@@ -1,19 +1,30 @@
 #include <pebble.h>
 #include "main_window.h"
 
+static int event_count = 0;
+
+static void (*func_lookup[][2])(const char *val) =
+{
+  {set_time_bracket, set_event_title},
+  {set_later_event_1_time, set_later_event_1_title},
+  {set_later_event_2_time, set_later_event_2_title}
+};
+  
 void in_received_handler(DictionaryIterator *received, void *context)
 {
 	Tuple *tuple;
   APP_LOG(APP_LOG_LEVEL_INFO, "Message received!");
   if((tuple = dict_read_first(received)))
   {
-    set_time_bracket(tuple->value->cstring);
+    func_lookup[event_count][0](tuple->value->cstring);
 	}
   
   if((tuple = dict_read_next(received)))
   {
-    set_event_title(tuple->value->cstring);
-	}  
+    func_lookup[event_count][1](tuple->value->cstring);
+	}
+  
+  event_count++;
 }
 
 void in_dropped_handler(AppMessageResult reason, void *context) 
