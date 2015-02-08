@@ -13,17 +13,19 @@ static void (*func_lookup[][2])(const char *val) =
 void in_received_handler(DictionaryIterator *received, void *context)
 {
 	Tuple *tuple;
+  int i;
+  
   APP_LOG(APP_LOG_LEVEL_INFO, "Message received!");
-  if((tuple = dict_read_first(received)))
-  {
-    func_lookup[event_count][0](tuple->value->cstring);
-	}
   
-  if((tuple = dict_read_next(received)))
-  {
-    func_lookup[event_count][1](tuple->value->cstring);
-	}
+  tuple = dict_read_first(received);
   
+  for(i = 0; i < 2 && tuple; i++)
+  {
+    func_lookup[event_count][tuple->key](tuple->value->cstring);
+    APP_LOG(APP_LOG_LEVEL_INFO, "%s: %s", tuple->key == 0 ? "Time" : "Title", tuple->value->cstring);
+    tuple = dict_read_next(received);
+	}
+ 
   event_count++;
 }
 

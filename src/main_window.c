@@ -4,8 +4,8 @@
 // BEGIN AUTO-GENERATED UI CODE; DO NOT MODIFY
 static Window *s_window;
 static GFont s_res_gothic_28_bold;
-static GFont s_res_gothic_14;
 static GFont s_res_gothic_18_bold;
+static GFont s_res_gothic_14;
 static TextLayer *time_bracket;
 static TextLayer *event_title;
 static TextLayer *later_event_1_time;
@@ -19,8 +19,8 @@ static void initialise_ui(void) {
   window_set_fullscreen(s_window, false);
   
   s_res_gothic_28_bold = fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD);
-  s_res_gothic_14 = fonts_get_system_font(FONT_KEY_GOTHIC_14);
   s_res_gothic_18_bold = fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
+  s_res_gothic_14 = fonts_get_system_font(FONT_KEY_GOTHIC_14);
   // time_bracket
   time_bracket = text_layer_create(GRect(0, 0, 145, 30));
   text_layer_set_text(time_bracket, "Loading...");
@@ -32,29 +32,33 @@ static void initialise_ui(void) {
   event_title = text_layer_create(GRect(0, 30, 144, 40));
   text_layer_set_background_color(event_title, GColorClear);
   text_layer_set_text_color(event_title, GColorWhite);
+  text_layer_set_text(event_title, "Text layer");
   text_layer_set_text_alignment(event_title, GTextAlignmentCenter);
   text_layer_set_font(event_title, s_res_gothic_18_bold);
-  layer_add_child(window_get_root_layer(s_window), (Layer *)event_title);
   
   // later_event_1_time
   later_event_1_time = text_layer_create(GRect(0, 70, 145, 16));
+  text_layer_set_text(later_event_1_time, "Text layer");
   text_layer_set_text_alignment(later_event_1_time, GTextAlignmentCenter);
   
   // later_event_1_title
   later_event_1_title = text_layer_create(GRect(0, 86, 145, 16));
   text_layer_set_background_color(later_event_1_title, GColorClear);
   text_layer_set_text_color(later_event_1_title, GColorWhite);
+  text_layer_set_text(later_event_1_title, "Text layer");
   text_layer_set_text_alignment(later_event_1_title, GTextAlignmentCenter);
   text_layer_set_font(later_event_1_title, s_res_gothic_14);
   
   // later_event_2_time
   later_event_2_time = text_layer_create(GRect(0, 102, 145, 16));
+  text_layer_set_text(later_event_2_time, "Text layer");
   text_layer_set_text_alignment(later_event_2_time, GTextAlignmentCenter);
   
   // later_event_2_title
   later_event_2_title = text_layer_create(GRect(0, 116, 145, 16));
   text_layer_set_background_color(later_event_2_title, GColorClear);
   text_layer_set_text_color(later_event_2_title, GColorWhite);
+  text_layer_set_text(later_event_2_title, "Text layer");
   text_layer_set_text_alignment(later_event_2_title, GTextAlignmentCenter);
   text_layer_set_font(later_event_2_title, s_res_gothic_14);
 }
@@ -98,6 +102,7 @@ void set_event_title(const char *title)
 {
   snprintf(title_str, sizeof(title_str), "%s", title);
   text_layer_set_text(event_title, title_str);
+  layer_add_child(window_get_root_layer(s_window), (Layer *)event_title);
 }
 
 static char later_event_1_time_str[14];
